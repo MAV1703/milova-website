@@ -50,6 +50,7 @@
                 <div class="h-full bg-[#0f0e0c]/60 rounded-lg p-4 md:p-6 lg:pr-12 xl:pr-[100px]">
 
                     {{-- Заголовок --}}
+					
                     <div class="flex gap-2 md:gap-4 justify-center items-center">
                         <div class="h-[2px] w-12 sm:w-24 md:w-36 bg-gradient-to-r from-transparent to-[#9f7e51]"></div>
                         <h2 class="font-semibold my-2 text-sm md:text-lg whitespace-nowrap">ПУБЛИЧНАЯ ОФЕРТА</h2>
@@ -64,7 +65,7 @@
                         <h4 class="font-semibold my-4 text-base md:text-lg" id="1">1. Общие положения</h4>
                         <p class="text-white/60 mb-4">1.1. Настоящий документ является публичной офертой (далее — «Оферта») Миловой Анастасии Викторовны, зарегистрированной в качестве плательщика налога на профессиональный доход (самозанятого), именуемого в дальнейшем «Исполнитель», и адресован неопределённому кругу лиц (далее — «Заказчик»).</p>
                         <p class="text-white/60 mb-4">1.2. В соответствии с п. 2 ст. 437 ГК РФ настоящая Оферта является публичной.</p>
-                        <p class="text-white/60 mb-4">1.3. Оферта размещена на Сайте Исполнителя по адресу: https://milova.it и действует до момента её отзыва.</p>
+                        <p class="text-white/60 mb-4">1.3. Оферта размещена на Сайте Исполнителя по адресу: https://milova.website и действует до момента её отзыва.</p>
                         <p class="text-white/60 mb-4">1.4. Акцептом Оферты (полным и безоговорочным принятием условий) является совершение Заказчиком любого из следующих действий:</p>
                         <ul class="text-white/60 mb-4 list-disc list-inside ml-4">
                             <li>оплата услуг Исполнителя;</li>
