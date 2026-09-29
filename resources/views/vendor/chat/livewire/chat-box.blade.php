@@ -44,9 +44,9 @@
             </div>
         @endif
 
-        <form wire:submit.prevent="sendMessage" class="flex flex-col gap-2">
-			{{-- Строка 1: скрепка + инпут --}}
-			<div class="flex gap-2 items-center">
+        <form wire:submit.prevent="sendMessage" class="flex flex-col gap-2 md:flex-row md:items-center">
+			{{-- Скрепка + инпут --}}
+			<div class="flex gap-2 items-center flex-1 min-w-0">
 				<label class="cursor-pointer text-[gray]/40 hover:text-[gray]/80 transition flex-shrink-0">
 					<input type="file" wire:model="tempFiles" multiple class="hidden" accept="image/*,.pdf,.doc,.docx">
 					<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,9 +58,9 @@
 					class="flex-1 min-w-0 p-2 bg-[#0f0e0c]/80 rounded-lg text-white border-[#494338] focus:outline-none focus:ring-0 focus:border-[#9f7e51] text-sm">
 			</div>
 
-			{{-- Строка 2: кнопка на всю ширину --}}
+			{{-- Кнопка: на мобилке — на всю ширину, на десктопе — компактная --}}
 			<button type="submit"
-					class="w-full text-black py-2 bg-[#9f7e51] rounded-lg text-sm transition-colors duration-300 hover:bg-gradient-to-r hover:from-[#7f511f] hover:to-[#9f7e51]">
+					class="w-full md:w-auto md:px-4 md:py-2 text-black py-2 bg-[#9f7e51] rounded-lg text-sm transition-colors duration-300 hover:bg-gradient-to-r hover:from-[#7f511f] hover:to-[#9f7e51] flex-shrink-0">
 				Отправить
 			</button>
 		</form>
