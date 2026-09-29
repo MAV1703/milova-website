@@ -477,10 +477,10 @@
 
         {{-- Ссылки --}}
         <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center mt-4">
-            <a class="text-xs md:text-sm text-[#9f7e51] underline font-semibold" href="">
+            <a href="{{ route('publicOffer') }}" class="text-xs md:text-sm text-[#9f7e51] underline font-semibold" href="">
                 &middot; Договор публичной оферты &middot;
             </a>
-            <a class="text-xs md:text-sm text-[#9f7e51] underline font-semibold" href="">
+            <a href="{{ route('privacy') }}" class="text-xs md:text-sm text-[#9f7e51] underline font-semibold" href="">
                 &middot; Политика конфиденциальности &middot;
             </a>
         </div>
