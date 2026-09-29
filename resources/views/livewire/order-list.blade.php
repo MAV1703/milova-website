@@ -50,15 +50,24 @@
                 @endif
 
                 @if($orders->count() == 1 && $orders->first()->status_id == 1)
-                    <div class="text-center flex flex-col justify-center mt-10 md:mt-20">
-                        <img src="{{ asset('/images/pencil.png') }}" class="w-[20%] mx-auto" alt="...">
-                        <h3 class="font-semibold text-base md:text-lg m-6">У вас пока нет заказов</h3>
-                        <p class="text-sm md:text-base">Когда вы создадите заказ,<br>он появится здесь</p>
-                        <a href="{{ route('newOrder') }}"
-                           class="rounded-lg my-4 mx-auto w-fit text-black px-3 py-2 bg-[#9f7e51] text-sm md:text-lg transition-colors duration-300 hover:bg-gradient-to-r hover:from-[#7f511f] hover:to-[#9f7e51]">
-                            Оформить заказ &rarr;
-                        </a>
-                    </div>
+                    <div class="text-center flex flex-col justify-center items-center mt-6 sm:mt-8 md:mt-10 px-4">
+						<img src="{{ asset('/images/pencil.png') }}"
+							class="w-14 sm:w-16 md:w-18 lg:w-20 h-auto opacity-80"
+							alt="Нет заказов">
+
+						<h3 class="font-semibold text-white/60 text-base sm:text-lg md:text-xl lg:text-lg mt-4 sm:mt-5 md:mt-6">
+							У вас пока нет заказов
+						</h3>
+
+						<p class="text-xs sm:text-sm md:text-md lg:text-md  text-white/50 mt-2 sm:mt-3 md:mt-4 max-w-xs sm:max-w-sm">
+							Когда вы создадите заказ,<br>он появится здесь
+						</p>
+
+						<a href="{{ route('newOrder') }}"
+						class="rounded-lg mt-4 mb-2 sm:mt-5 md:mt-6 text-black px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 lg:px-6 lg:py-3 bg-[#9f7e51] text-sm sm:text-sm md:text-md lg:text-md transition-colors duration-300 hover:bg-gradient-to-r hover:from-[#7f511f] hover:to-[#9f7e51]">
+							Оформить заказ &rarr;
+						</a>
+					</div>
                 @endif
             </div>
         @endif
