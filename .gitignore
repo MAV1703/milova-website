@@ -1,0 +1,14 @@
+.env
+.env.save
+.env.*
+/vendor
+/node_modules
+/storage/*.key
+/storage/logs/*.log
+/bootstrap/cache/*
+/public/storage
+.phpunit.result.cache
+vendor.zip
+*.zip
+.DS_Store
+Thumbs.db
