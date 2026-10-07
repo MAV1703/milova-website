@@ -13,7 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use UnseenCodes\Chat\Models\Message;
 
-class NotifyUnreadMessage implements ShouldQueue, ShouldBeUnique
+class NotifyUnreadMessage implements ShouldBeUnique, ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -26,12 +26,12 @@ class NotifyUnreadMessage implements ShouldQueue, ShouldBeUnique
 
     public function uniqueId(): string
     {
-        return 'notify-recipient-' . $this->recipientId;
+        return 'notify-recipient-'.$this->recipientId;
     }
 
     public function uniqueFor(): int
     {
-        return 3600; 
+        return 3600;
     }
 
     public function handle(): void
@@ -61,13 +61,13 @@ class NotifyUnreadMessage implements ShouldQueue, ShouldBeUnique
         $senderLabel = $sender->status !== 'admin'
             ? ($sender->name ?: 'Клиент')
             : 'Веб-мастер';
-		
-		$link = url("/orders/{$orderNum}");
-		
+
+        $link = url("/orders/{$orderNum}");
+
         $text = "💬 Новое сообщение в чате №{$orderNum}\n"
-              . "От: {$senderLabel}\n"
-              . "Текст: {$body}\n"
-			  . "🔗 Открыть: {$link}";
+              ."От: {$senderLabel}\n"
+              ."Текст: {$body}\n"
+              ."🔗 Открыть: {$link}";
 
         app(MaxNotifier::class)->send($this->recipientId, $text);
     }
@@ -80,6 +80,7 @@ class NotifyUnreadMessage implements ShouldQueue, ShouldBeUnique
             if (! $adminId) {
                 return false;
             }
+
             return $message->readReceipts()->where('user_id', $adminId)->exists();
         }
 
@@ -87,6 +88,7 @@ class NotifyUnreadMessage implements ShouldQueue, ShouldBeUnique
         if (! $userId) {
             return false;
         }
+
         return $message->readReceipts()->where('user_id', $userId)->exists();
     }
 }

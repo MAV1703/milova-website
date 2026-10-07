@@ -1,7 +1,11 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+use App\Providers\VoltServiceProvider;
+use UnseenCodes\Chat\Providers\ChatServiceProvider;
+
 return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\VoltServiceProvider::class,
-	UnseenCodes\Chat\Providers\ChatServiceProvider::class,
+    AppServiceProvider::class,
+    VoltServiceProvider::class,
+    ChatServiceProvider::class,
 ];

@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('orders', function(Blueprint $table)
-		{
-			$table->integer('price')->nullable();
-		});
+        Schema::table('orders', function (Blueprint $table) {
+            $table->integer('price')->nullable();
+        });
     }
 
     /**

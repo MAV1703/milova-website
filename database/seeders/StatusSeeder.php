@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -13,6 +12,6 @@ class StatusSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('statuses')->insert([['status'=>'Черновик'], ['status'=>'Согласование заказа'], ['status'=>'Ожидает оплаты'], ['status'=>'В работе'], ['status'=>'Согласование и правки'], ['status'=>'Ожидает оплаты'], ['status'=>'Выполнен']]);
+        DB::table('statuses')->insert([['status' => 'Черновик'], ['status' => 'Согласование заказа'], ['status' => 'Ожидает оплаты'], ['status' => 'В работе'], ['status' => 'Согласование и правки'], ['status' => 'Ожидает оплаты'], ['status' => 'Выполнен']]);
     }
 }

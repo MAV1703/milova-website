@@ -5,6 +5,12 @@
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
+	"repositories": [
+        {
+            "type": "path",
+            "url": "./packages/yookassa-sdk-php-main"
+        }
+    ],
     "require": {
         "php": "^8.3",
         "dasundev/livewire-dropzone": "^2.0",
@@ -12,7 +18,8 @@
         "laravel/tinker": "^3.0",
         "livewire/livewire": "^3.6.4",
         "livewire/volt": "^1.7.0",
-        "unseen-codes/chat": "^1.0"
+        "unseen-codes/chat": "^1.0",
+		"yoomoney/yookassa-sdk-php": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^4.4",
@@ -32,7 +39,11 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+			
+        },
+		    "files": [
+        "packages/yookassa-sdk-php-main/lib/autoload.php"
+    ]
     },
     "autoload-dev": {
         "psr-4": {

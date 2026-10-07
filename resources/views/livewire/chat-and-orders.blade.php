@@ -15,7 +15,7 @@
 						{{-- Кнопка «Назад / К списку» --}}
 						<button
 							onclick="if (window.innerWidth >= 1024) { window.history.back(); } else { Livewire.dispatch('close-chat-on-mobile'); }"
-							class="h-10 w-10 lg:h-12 lg:w-12 bg-[#151515] border-1 border-[#494338] text-lg rounded-lg flex items-center justify-center cursor-pointer hover:bg-[#222] transition">
+							class="lg:hidden h-10 w-10 lg:h-12 lg:w-12 bg-[#151515] border-1 border-[#494338] text-lg rounded-lg flex items-center justify-center cursor-pointer hover:bg-[#222] transition">
 							<span class="text-xl lg:text-2xl font-bold">&#8592;</span>
 						</button>
 

@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function(Blueprint $table)
-		{
-			$table->enum('status', ['client', 'admin'])->nullable()->default('client');
-		});
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('status', ['client', 'admin'])->nullable()->default('client');
+        });
     }
 
     /**

@@ -16,14 +16,14 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('message_id')
-                  ->references('id')
-                  ->on('chat_messages')
-                  ->cascadeOnDelete();
+                ->references('id')
+                ->on('chat_messages')
+                ->cascadeOnDelete();
 
             $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->cascadeOnDelete();
+                ->references('id')
+                ->on('users')
+                ->cascadeOnDelete();
 
             $table->unique(['message_id', 'user_id', 'emoji'], 'chat_reactions_unique');
         });

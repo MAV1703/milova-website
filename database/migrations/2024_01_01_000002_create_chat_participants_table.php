@@ -20,9 +20,9 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('conversation_id')
-                  ->references('id')
-                  ->on('chat_conversations')
-                  ->cascadeOnDelete();
+                ->references('id')
+                ->on('chat_conversations')
+                ->cascadeOnDelete();
 
             $table->index(
                 ['participantable_type', 'participantable_id'],

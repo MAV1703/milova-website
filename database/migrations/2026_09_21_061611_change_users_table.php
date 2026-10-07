@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-         Schema::table('users', function(Blueprint $table)
-		{
-			$table->string('max_user_id')->nullable();
-		}
-		);
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('max_user_id')->nullable();
+        }
+        );
     }
 
     /**

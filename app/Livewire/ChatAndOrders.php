@@ -2,17 +2,20 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use App\Models\Order;
 use App\Models\User;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 class ChatAndOrders extends Component
 {
     public $orders;
+
     public $chatingOrder;
+
     public $orderAuthor;
+
     public $filtered;
+
     public bool $showChatOnMobile = false;
 
     protected $listeners = ['upload' => 'uploadOrder'];
@@ -28,12 +31,11 @@ class ChatAndOrders extends Component
         $this->showChatOnMobile = request()->boolean('openChat', false);
     }
 
-	#[On('close-chat-on-mobile')]
-	public function closeChatOnMobile(): void
-	{
-		$this->showChatOnMobile = false;
-	}
-
+    #[On('close-chat-on-mobile')]
+    public function closeChatOnMobile(): void
+    {
+        $this->showChatOnMobile = false;
+    }
 
     public function uploadOrder()
     {

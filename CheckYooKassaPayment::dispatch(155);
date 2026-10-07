@@ -1,0 +1,34 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#8666
+    [34mall[39m: [
+      [34;4mApp\Models\Order[39;24m {#8661
+        [34mid[39m: [35m155[39m,
+        [34mstatus_id[39m: [35m3[39m,
+        [34mpayment_id[39m: [32m"[39m[32m3256d91b-000f-5001-9000-15730f5989fe[39m[32m"[39m,
+        [34mpayment_status[39m: [32m"[39m[32mpending[39m[32m"[39m,
+      },
+      [34;4mApp\Models\Order[39;24m {#8660
+        [34mid[39m: [35m158[39m,
+        [34mstatus_id[39m: [35m6[39m,
+        [34mpayment_id[39m: [32m"[39m[32m3256d025-000f-5001-9000-102831f49591[39m[32m"[39m,
+        [34mpayment_status[39m: [32m"[39m[32mpending[39m[32m"[39m,
+      },
+      [34;4mApp\Models\Order[39;24m {#8663
+        [34mid[39m: [35m159[39m,
+        [34mstatus_id[39m: [35m3[39m,
+        [34mpayment_id[39m: [32m"[39m[32m3256d259-000f-5001-a000-175d82aab87a[39m[32m"[39m,
+        [34mpayment_status[39m: [32m"[39m[32mpending[39m[32m"[39m,
+      },
+      [34;4mApp\Models\Order[39;24m {#8664
+        [34mid[39m: [35m160[39m,
+        [34mstatus_id[39m: [35m3[39m,
+        [34mpayment_id[39m: [32m"[39m[32m3254b582-000f-5001-a000-18324e0914b7[39m[32m"[39m,
+        [34mpayment_status[39m: [32m"[39m[32mpending[39m[32m"[39m,
+      },
+      [34;4mApp\Models\Order[39;24m {#8665
+        [34mid[39m: [35m161[39m,
+        [34mstatus_id[39m: [35m3[39m,
+        [34mpayment_id[39m: [32m"[39m[32m3254b53d-000f-5001-a000-161ff6c58e06[39m[32m"[39m,
+        [34mpayment_status[39m: [32m"[39m[32mpending[39m[32m"[39m,
+      },
+    ],
+  }

@@ -35,10 +35,15 @@ return [
         ],
     ],
 
-	'max' => [
-    'token' => env('MAX_BOT_TOKEN'),
-    'admin_user_id' => env('MAX_ADMIN_USER_ID'),
-    'ca_cert' => env('MAX_CA_CERT', 'certificate/russiantrustedca.pem'),
-    'api_url' => 'https://platform-api2.max.ru',
-	],
+    'max' => [
+        'token' => env('MAX_BOT_TOKEN'),
+        'admin_user_id' => env('MAX_ADMIN_USER_ID'),
+        'ca_cert' => env('MAX_CA_CERT', 'certificate/russiantrustedca.pem'),
+        'api_url' => 'https://platform-api2.max.ru',
+    ],
+
+    'yookassa' => [
+        'shop_id' => env('YOOKASSA_SHOP_ID'),
+        'secret_key' => env('YOOKASSA_SECRET_KEY'),
+    ],
 ];

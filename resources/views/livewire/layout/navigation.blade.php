@@ -76,73 +76,92 @@ $logout = function (Logout $logout) {
 					</svg>
 				</a>
             {{-- БЛОК 3: профиль / вход (бронзовые) --}}
-            <div class="flex items-center gap-3 lg:gap-4 text-[#a89983]">
+				<div class="flex items-center gap-3 lg:gap-4 text-[#a89983]">
 
-                {{-- Не залогинен --}}
-                @guest
-                    {{-- Мобилка: иконка профиля --}}
-                    <a href="{{ route('login') }}" title="Войти"
-                       class="lg:hidden transition-transform duration-200 hover:scale-125">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                             stroke-width="1.5" stroke="currentColor"
-                             class="w-5 h-5 sm:w-6 sm:h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                        </svg>
-                    </a>
-                    {{-- Десктоп: текст --}}
-                    <div class="hidden lg:flex items-center gap-4">
-                        <a href="{{ route('login') }}">Вход</a>
-                        <span>|</span>
-                        <a href="{{ route('register') }}">Регистрация</a>
-                    </div>
-                @endguest
+					@php
+						// Считаем «настоящим» пользователем того, кто авторизован и не гость
+						$isRealUser = auth()->check() && auth()->user()->status !== 'guest';
+					@endphp
 
-                {{-- Залогинен --}}
-                @auth
-                    @if(auth()->user()->status != 'guest')
-                        {{-- Мобилка: иконка профиля с выпадашкой --}}
-                        <div x-data="{ userOpen: false }" class="relative lg:hidden">
-                            <button @click="userOpen = !userOpen" title="Профиль"
-                                    class="transition-transform duration-200 hover:scale-125">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                     stroke-width="1.5" stroke="currentColor"
-                                     class="w-5 h-5 sm:w-6 sm:h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                </svg>
-                            </button>
-                            <ul x-show="userOpen" x-transition @click.outside="userOpen = false"
-                                class="absolute top-full right-0 mt-2 w-[220px] bg-black rounded-lg shadow-md z-10 text-white p-4 font-semibold">
-                                <li class="text-left p-2 text-sm">
-                                    <a href="{{ route('orders') }}">Заказы &middot; Чат</a>
-                                </li>
-                                <li>
-                                    <button wire:click="logout" class="w-full text-start p-2 text-sm">
-                                        Выйти
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
+					@if($isRealUser)
+						{{-- ===== АВТОРИЗОВАН (клиент/админ) ===== --}}
 
-                        {{-- Десктоп: имя + выпадашка --}}
-                        <div x-data="{ userOpen: false }" class="relative hidden lg:block">
-                            <p @click="userOpen = !userOpen" class="text-base cursor-pointer">
-                                {{ auth()->user()->name }} &#9660;
-                            </p>
-                            <ul x-show="userOpen" x-transition @click.outside="userOpen = false"
-                                class="absolute top-full right-0 mt-2 w-[240px] bg-black rounded-lg shadow-md z-10 text-white p-4 font-semibold">
-                                <li class="text-left p-2 text-sm"><a href="{{ route('orders') }}">Заказы &middot; Чат</a></li>
-                                <li>
-                                    <button wire:click="logout" class="w-full text-start p-2 text-sm">
-                                        {{ __('Выйти') }}
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    @endif
-                @endauth
-            </div>
+						{{-- Мобилка: иконка профиля с выпадашкой --}}
+						<div x-data="{ userOpen: false }" class="relative lg:hidden">
+							<button @click="userOpen = !userOpen" title="Профиль"
+									class="transition-transform duration-200 hover:scale-125">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+									stroke-width="1.5" stroke="currentColor"
+									class="w-5 h-5 sm:w-6 sm:h-6">
+									<path stroke-linecap="round" stroke-linejoin="round"
+										d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+								</svg>
+							</button>
+							<ul x-show="userOpen" x-transition @click.outside="userOpen = false"
+								class="absolute top-full right-0 mt-2 w-[220px] bg-black rounded-lg shadow-md z-10 text-white p-4 font-semibold">
+								<li class="text-left p-2 text-sm">
+									<a href="{{ route('orders') }}">Заказы &middot; Чат</a>
+								</li>
+								<li>
+									<button wire:click="logout" class="w-full text-start p-2 text-sm">
+										Выйти
+									</button>
+								</li>
+							</ul>
+						</div>
+
+						{{-- Десктоп: имя + выпадашка --}}
+						<div x-data="{ userOpen: false }" class="relative hidden lg:block">
+							<p @click="userOpen = !userOpen" class="text-base cursor-pointer">
+								{{ auth()->user()->name }} &#9660;
+							</p>
+							<ul x-show="userOpen" x-transition @click.outside="userOpen = false"
+								class="absolute top-full right-0 mt-2 w-[240px] bg-black rounded-lg shadow-md z-10 text-white p-4 font-semibold">
+								<li class="text-left p-2 text-sm">
+									<a href="{{ route('orders') }}">Заказы &middot; Чат</a>
+								</li>
+								<li>
+									<button wire:click="logout" class="w-full text-start p-2 text-sm">
+										{{ __('Выйти') }}
+									</button>
+								</li>
+							</ul>
+						</div>
+
+					@else
+						{{-- ===== НЕАВТОРИЗОВАН ИЛИ ГОСТЬ ===== --}}
+
+						{{-- Мобилка: иконка профиля с выпадашкой --}}
+						<div x-data="{ userOpen: false }" class="relative lg:hidden">
+							<button @click="userOpen = !userOpen" title="Войти"
+									class="transition-transform duration-200 hover:scale-125">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+									stroke-width="1.5" stroke="currentColor"
+									class="w-5 h-5 sm:w-6 sm:h-6">
+									<path stroke-linecap="round" stroke-linejoin="round"
+										d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+								</svg>
+							</button>
+							<ul x-show="userOpen" x-transition @click.outside="userOpen = false"
+								class="absolute top-full right-0 mt-2 w-[220px] bg-black rounded-lg shadow-md z-10 text-white p-4 font-semibold">
+								<li class="text-left p-2 text-sm">
+									<a href="{{ route('login') }}">Вход</a>
+								</li>
+								<li class="text-left p-2 text-sm">
+									<a href="{{ route('register') }}">Регистрация</a>
+								</li>
+							</ul>
+						</div>
+
+						{{-- Десктоп: ссылки «Вход | Регистрация» --}}
+						<div class="hidden lg:flex items-center gap-4">
+							<a href="{{ route('login') }}">Вход</a>
+							<span>|</span>
+							<a href="{{ route('register') }}">Регистрация</a>
+						</div>
+					@endif
+
+				</div>
         </div>
     </div>
 </nav>

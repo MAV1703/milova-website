@@ -19,6 +19,7 @@ class OrderController extends Controller
             $guestId = auth()->id();
             auth()->logout();
             session()->put('guest_id_to_merge', $guestId);
+
             return redirect()->route('register');
         }
     }

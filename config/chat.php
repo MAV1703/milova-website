@@ -1,5 +1,13 @@
 <?php
 
+use App\Models\User;
+use UnseenCodes\Chat\Models\Attachment;
+use UnseenCodes\Chat\Models\Conversation;
+use UnseenCodes\Chat\Models\Message;
+use UnseenCodes\Chat\Models\Participant;
+use UnseenCodes\Chat\Models\Reaction;
+use UnseenCodes\Chat\Models\ReadReceipt;
+
 return [
 
     /*
@@ -7,7 +15,7 @@ return [
     | User Model
     |--------------------------------------------------------------------------
     */
-    'user_model' => \App\Models\User::class,
+    'user_model' => User::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -18,10 +26,10 @@ return [
     */
     'table_names' => [
         'conversations' => 'chat_conversations',
-        'participants'  => 'chat_participants',
-        'messages'      => 'chat_messages',
-        'attachments'   => 'chat_attachments',
-        'reactions'     => 'chat_reactions',
+        'participants' => 'chat_participants',
+        'messages' => 'chat_messages',
+        'attachments' => 'chat_attachments',
+        'reactions' => 'chat_reactions',
         'read_receipts' => 'chat_read_receipts',
     ],
 
@@ -31,12 +39,12 @@ return [
     |--------------------------------------------------------------------------
     */
     'models' => [
-        'conversation' => \UnseenCodes\Chat\Models\Conversation::class,
-        'participant'  => \UnseenCodes\Chat\Models\Participant::class,
-        'message'      => \UnseenCodes\Chat\Models\Message::class,
-        'attachment'   => \UnseenCodes\Chat\Models\Attachment::class,
-        'reaction'     => \UnseenCodes\Chat\Models\Reaction::class,
-        'read_receipt' => \UnseenCodes\Chat\Models\ReadReceipt::class,
+        'conversation' => Conversation::class,
+        'participant' => Participant::class,
+        'message' => Message::class,
+        'attachment' => Attachment::class,
+        'reaction' => Reaction::class,
+        'read_receipt' => ReadReceipt::class,
     ],
 
     /*
@@ -45,12 +53,12 @@ return [
     |--------------------------------------------------------------------------
     */
     'features' => [
-        'attachments'      => true,
-        'reactions'        => false,
-        'read_receipts'    => true,
+        'attachments' => true,
+        'reactions' => false,
+        'read_receipts' => true,
         'typing_indicator' => true,
-        'group_chat'       => true,
-        'message_editing'  => true,
+        'group_chat' => true,
+        'message_editing' => true,
     ],
 
     /*
@@ -77,7 +85,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'messages' => [
-        'max_length'  => 5000,
+        'max_length' => 5000,
         'soft_delete' => true,
     ],
 
@@ -87,9 +95,9 @@ return [
     |--------------------------------------------------------------------------
     */
     'attachments' => [
-        'disk'          => env('CHAT_ATTACHMENT_DISK', 'public'),
-        'path'          => 'chat/attachments',
-        'max_size_kb'   => 10240,
+        'disk' => env('CHAT_ATTACHMENT_DISK', 'public'),
+        'path' => 'chat/attachments',
+        'max_size_kb' => 10240,
         'allowed_types' => ['image/*', 'application/pdf', 'video/mp4'],
     ],
 
@@ -109,8 +117,8 @@ return [
     |--------------------------------------------------------------------------
     */
     'routes' => [
-        'enabled'    => true,
-        'prefix'     => 'chat',
+        'enabled' => true,
+        'prefix' => 'chat',
         'middleware' => ['web', 'auth'],
     ],
 

@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.5s>
 	@if($order->status_id != 1 || (auth()->user()->status == 'admin' && $messages->count()>0))
 	<div @class(["relative rounded-xl p-[1px] text-white  m-2 cursor-pointer lg:transition-transform lg:duration-200 lg:hover:translate-x-[4px]", "bg-gradient-to-l from-[#203d13]/20 to-[#31641a]/20 border-[#31641a]"=>$order->id == $chatingOrder->id, "bg-gradient-to-l from-[#494338] to-[#111111]"=>$order->id != $chatingOrder->id]) >
 		<div @class(["bg-[#141414] rounded-lg p-3 sm:p-4", "bg-transparent/10"=>$order->id == $chatingOrder->id])>
@@ -13,7 +13,7 @@
 							{{ $order->status->status }}
 						</p>
 					@endif
-					<div class="flex gap-2 absolute right-[20px] top-[20px]">
+					<div class="flex gap-2 absolute right-[20px] bottom-[10px]">
 					@if(auth()->user()->unreadCountIn($conversation)>0)
 						<div class="text-[#31641a] ">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">

@@ -3,13 +3,11 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Order;
 use UnseenCodes\Chat\Contracts\MessageServiceContract;
 use UnseenCodes\Chat\Models\Conversation;
 
 class OrderList extends Component
 {
-
     public $orders;
 
     public $filter;
@@ -23,7 +21,7 @@ class OrderList extends Component
         $this->orders = $orders;
         $this->chatingOrderId = $chatingOrder;
         $this->filtered = $filtered;
-		$this->filter = session('orders.filter', 'all');
+        $this->filter = session('orders.filter', 'all');
         if ($chatingOrder && $chatingOrder->conversation_id) {
             app(MessageServiceContract::class)->markAsRead(
                 Conversation::find($chatingOrder->conversation_id),
@@ -35,10 +33,9 @@ class OrderList extends Component
     public function filterOrders($value)
     {
         $this->filter = $value;
-		session(['orders.filter' => $this->filter]);
+        session(['orders.filter' => $this->filter]);
 
     }
-
 
     public function render()
     {

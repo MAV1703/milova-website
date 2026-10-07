@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Model\File;
+use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-
     public function files()
-	{
-		return $this->morphMany(File::class, 'fileable');
-	}
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
 }

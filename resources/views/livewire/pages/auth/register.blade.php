@@ -162,7 +162,6 @@ $register = function () {
 				wire:model="remember" 
 				id="remember" 
 				type="checkbox" 
-				checked
 				class="m-2 bg-[#1d1d1d] rounded-md text-[#494338] w-5 h-5 border-[#494338]  rounded-sm  transition-all duration-100 focus:border-transparent focus:ring-0 focus:outline-none">
 			<span class="ms-2 text-sm text-[#9f7e51]">Запомнить меня</span>
 		</label>

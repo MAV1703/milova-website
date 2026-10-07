@@ -19,9 +19,9 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('message_id')
-                  ->references('id')
-                  ->on('chat_messages')
-                  ->cascadeOnDelete();
+                ->references('id')
+                ->on('chat_messages')
+                ->cascadeOnDelete();
         });
     }
 

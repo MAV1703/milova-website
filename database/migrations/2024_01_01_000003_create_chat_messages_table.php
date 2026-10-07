@@ -21,14 +21,14 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('conversation_id')
-                  ->references('id')
-                  ->on('chat_conversations')
-                  ->cascadeOnDelete();
+                ->references('id')
+                ->on('chat_conversations')
+                ->cascadeOnDelete();
 
             $table->foreign('sender_id')
-                  ->references('id')
-                  ->on('users')
-                  ->cascadeOnDelete();
+                ->references('id')
+                ->on('users')
+                ->cascadeOnDelete();
 
             // Self-referencing FK added after table exists — see migration 3b
             $table->index(['conversation_id', 'created_at'], 'chat_messages_conv_created_idx');
@@ -37,9 +37,9 @@ return new class extends Migration
         // Add self-referencing FK separately to avoid issues on some DB drivers
         Schema::table('chat_messages', function (Blueprint $table) {
             $table->foreign('reply_to_id')
-                  ->references('id')
-                  ->on('chat_messages')
-                  ->nullOnDelete();
+                ->references('id')
+                ->on('chat_messages')
+                ->nullOnDelete();
         });
     }
 
