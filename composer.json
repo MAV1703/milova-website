@@ -42,7 +42,7 @@
 			
         },
 		    "files": [
-        "packages/yookassa-sdk-php-main/lib/autoload.php"
+            "packages/yookassa-sdk-php-master/lib/autoload.php"
     ]
     },
     "autoload-dev": {
