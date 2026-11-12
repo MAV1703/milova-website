@@ -491,6 +491,10 @@
 
         const birdFrames = Array.from({ length: 41 }, (_, i) => `{{ asset('images/bird') }}/${i + 1}.png`);
 
+        // Состояния: 
+        // 0 = Текст, 1 = Преимущества (Ряд 1), 2 = Преимущества (Ряд 2), 
+        // 3 = Птица, 4 = Заголовок Океана, 5 = Карточки Океана, 
+        // 6 = Портфолио (Карусель), 7 = Портфолио (Этапы), 8 = Портфолио (Контакты)
         let currentState = 0; 
         let isAnimating = false;
         
@@ -502,47 +506,31 @@
 
         let currentProject = 0; 
 
-        window.addEventListener('wheel', (e) => {
-            if (isAnimating) {
-                e.preventDefault();
-                return;
-            }
+        // === ОСНОВНАЯ ФУНКЦИЯ СКРОЛЛА (ДЛЯ КОЛЕСИКА И СВАЙПОВ) ===
+        const scrollDown = () => {
+            if (isAnimating) return;
 
-            // СКРОЛЛ ВНИЗ
-            if (e.deltaY > 0) {
-                if (currentState === 0) {
-                    e.preventDefault(); isAnimating = true;
-                    heroText.classList.add('opacity-0', 'translate-y-10'); heroText.classList.remove('opacity-100');
-                    
-                    // Скрываем фото ТОЛЬКО если экран меньше 1024px
-                    if (window.innerWidth < 1024) {
-                        heroPhoto.style.opacity = '0';
-                    }
-                    
-                    advantagesBlock.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10'); advantagesBlock.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
-                    advRow1.classList.remove('hidden'); advRow1.classList.add('grid');
-                    advRow2.classList.add('hidden'); advRow2.classList.remove('grid');
-                    currentState = 1; setTimeout(() => { isAnimating = false; }, 800);
-                } 
-                else if (currentState === 1) {
-                    if (window.innerWidth < 1024) {
-                        e.preventDefault(); isAnimating = true;
-                        advRow1.classList.add('hidden'); advRow1.classList.remove('grid');
-                        advRow2.classList.remove('hidden'); advRow2.classList.add('grid');
-                        currentState = 2; setTimeout(() => { isAnimating = false; }, 800);
-                    } else {
-                        e.preventDefault(); isAnimating = true;
-                        screen1.classList.add('opacity-0', 'pointer-events-none'); screen2.classList.remove('opacity-0', 'pointer-events-none');
-                        currentState = 3;
-                        birdContainer.style.opacity = '1'; isBirdFlying = true; birdProgress = 0; currentFrameIndex = 0;
-                        birdA.src = birdFrames[0]; birdB.src = birdFrames[0]; birdA.style.opacity = '1'; birdB.style.opacity = '0'; isLayerAActive = true;
-                        flyBird();
-                        setTimeout(() => { birdContent.classList.remove('opacity-0', 'translate-y-10'); birdContent.classList.add('opacity-100', 'translate-y-0'); }, 800);
-                        setTimeout(() => { isAnimating = false; }, 800);
-                    }
+            if (currentState === 0) {
+                isAnimating = true;
+                heroText.classList.add('opacity-0', 'translate-y-10'); heroText.classList.remove('opacity-100');
+                
+                if (window.innerWidth < 1024) {
+                    if (heroPhoto) heroPhoto.style.opacity = '0';
                 }
-                else if (currentState === 2) {
-                    e.preventDefault(); isAnimating = true;
+                
+                advantagesBlock.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10'); advantagesBlock.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                advRow1.classList.remove('hidden'); advRow1.classList.add('grid');
+                advRow2.classList.add('hidden'); advRow2.classList.remove('grid');
+                currentState = 1; setTimeout(() => { isAnimating = false; }, 800);
+            } 
+            else if (currentState === 1) {
+                if (window.innerWidth < 1024) {
+                    isAnimating = true;
+                    advRow1.classList.add('hidden'); advRow1.classList.remove('grid');
+                    advRow2.classList.remove('hidden'); advRow2.classList.add('grid');
+                    currentState = 2; setTimeout(() => { isAnimating = false; }, 800);
+                } else {
+                    isAnimating = true;
                     screen1.classList.add('opacity-0', 'pointer-events-none'); screen2.classList.remove('opacity-0', 'pointer-events-none');
                     currentState = 3;
                     birdContainer.style.opacity = '1'; isBirdFlying = true; birdProgress = 0; currentFrameIndex = 0;
@@ -551,137 +539,176 @@
                     setTimeout(() => { birdContent.classList.remove('opacity-0', 'translate-y-10'); birdContent.classList.add('opacity-100', 'translate-y-0'); }, 800);
                     setTimeout(() => { isAnimating = false; }, 800);
                 }
-                else if (currentState === 3) {
-                    e.preventDefault(); isAnimating = true;
-                    screen2.classList.add('opacity-0', 'pointer-events-none'); screen3.classList.remove('opacity-0', 'pointer-events-none');
-                    birdContent.classList.add('opacity-0', 'translate-y-10'); birdContent.classList.remove('opacity-100', 'translate-y-0');
-                    isBirdFlying = false;
-                    if (oceanVideo) oceanVideo.play();
-                    oceanTitle.classList.remove('opacity-0', 'translate-y-10'); oceanTitle.classList.add('opacity-100', 'translate-y-0');
-                    currentState = 4; setTimeout(() => { isAnimating = false; }, 800);
-                }
-                else if (currentState === 4) {
-                    e.preventDefault(); isAnimating = true;
-                    oceanTitle.classList.add('opacity-0', 'translate-y-10'); oceanTitle.classList.remove('opacity-100', 'translate-y-0');
-                    oceanCards.classList.remove('opacity-0', 'translate-y-10'); oceanCards.classList.add('opacity-100', 'translate-y-0');
-                    currentState = 5; setTimeout(() => { isAnimating = false; }, 800);
-                }
-                else if (currentState === 5) {
-                    e.preventDefault(); isAnimating = true;
-                    screen3.classList.add('opacity-0', 'pointer-events-none'); screen4.classList.remove('opacity-0', 'pointer-events-none');
-                    if (oceanVideo) oceanVideo.pause();
-                    slideCarousel.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); slideCarousel.classList.add('opacity-100', 'translate-y-0');
-                    currentState = 6; setTimeout(() => { isAnimating = false; }, 800);
-                }
-                else if (currentState === 6) {
-                    e.preventDefault();
-                    if (currentProject < projects.length - 1) {
-                        isAnimating = true;
-                        projects[currentProject].classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-                        projects[currentProject].classList.remove('opacity-100', 'translate-y-0');
-                        currentProject++;
-                        projects[currentProject].classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-                        projects[currentProject].classList.add('opacity-100', 'translate-y-0');
-                        setTimeout(() => { isAnimating = false; }, 800);
-                    } else {
-                        isAnimating = true;
-                        slideCarousel.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); slideCarousel.classList.remove('opacity-100', 'translate-y-0');
-                        slideStages.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); slideStages.classList.add('opacity-100', 'translate-y-0');
-                        currentState = 7; setTimeout(() => { isAnimating = false; }, 800);
-                    }
-                }
-                else if (currentState === 7) {
-                    e.preventDefault(); isAnimating = true;
-                    slideStages.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); slideStages.classList.remove('opacity-100', 'translate-y-0');
-                    slideContacts.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); slideContacts.classList.add('opacity-100', 'translate-y-0');
-                    currentState = 8; setTimeout(() => { isAnimating = false; }, 800);
-                }
             }
-            
-            // СКРОЛЛ ВВЕРХ
-            if (e.deltaY < 0) {
-                if (currentState === 8) {
-                    e.preventDefault(); isAnimating = true;
+            else if (currentState === 2) {
+                isAnimating = true;
+                screen1.classList.add('opacity-0', 'pointer-events-none'); screen2.classList.remove('opacity-0', 'pointer-events-none');
+                currentState = 3;
+                birdContainer.style.opacity = '1'; isBirdFlying = true; birdProgress = 0; currentFrameIndex = 0;
+                birdA.src = birdFrames[0]; birdB.src = birdFrames[0]; birdA.style.opacity = '1'; birdB.style.opacity = '0'; isLayerAActive = true;
+                flyBird();
+                setTimeout(() => { birdContent.classList.remove('opacity-0', 'translate-y-10'); birdContent.classList.add('opacity-100', 'translate-y-0'); }, 800);
+                setTimeout(() => { isAnimating = false; }, 800);
+            }
+            else if (currentState === 3) {
+                isAnimating = true;
+                screen2.classList.add('opacity-0', 'pointer-events-none'); screen3.classList.remove('opacity-0', 'pointer-events-none');
+                birdContent.classList.add('opacity-0', 'translate-y-10'); birdContent.classList.remove('opacity-100', 'translate-y-0');
+                isBirdFlying = false;
+                if (oceanVideo) oceanVideo.play();
+                oceanTitle.classList.remove('opacity-0', 'translate-y-10'); oceanTitle.classList.add('opacity-100', 'translate-y-0');
+                currentState = 4; setTimeout(() => { isAnimating = false; }, 800);
+            }
+            else if (currentState === 4) {
+                isAnimating = true;
+                oceanTitle.classList.add('opacity-0', 'translate-y-10'); oceanTitle.classList.remove('opacity-100', 'translate-y-0');
+                oceanCards.classList.remove('opacity-0', 'translate-y-10'); oceanCards.classList.add('opacity-100', 'translate-y-0');
+                currentState = 5; setTimeout(() => { isAnimating = false; }, 800);
+            }
+            else if (currentState === 5) {
+                isAnimating = true;
+                screen3.classList.add('opacity-0', 'pointer-events-none'); screen4.classList.remove('opacity-0', 'pointer-events-none');
+                if (oceanVideo) oceanVideo.pause();
+                slideCarousel.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); slideCarousel.classList.add('opacity-100', 'translate-y-0');
+                currentState = 6; setTimeout(() => { isAnimating = false; }, 800);
+            }
+            else if (currentState === 6) {
+                if (currentProject < projects.length - 1) {
+                    isAnimating = true;
+                    projects[currentProject].classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    projects[currentProject].classList.remove('opacity-100', 'translate-y-0');
+                    currentProject++;
+                    projects[currentProject].classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    projects[currentProject].classList.add('opacity-100', 'translate-y-0');
+                    setTimeout(() => { isAnimating = false; }, 800);
+                } else {
+                    isAnimating = true;
+                    slideCarousel.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); slideCarousel.classList.remove('opacity-100', 'translate-y-0');
                     slideStages.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); slideStages.classList.add('opacity-100', 'translate-y-0');
-                    slideContacts.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); slideContacts.classList.remove('opacity-100', 'translate-y-0');
                     currentState = 7; setTimeout(() => { isAnimating = false; }, 800);
                 }
-                else if (currentState === 7) {
-                    e.preventDefault(); isAnimating = true;
-                    slideCarousel.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); slideCarousel.classList.add('opacity-100', 'translate-y-0');
-                    slideStages.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); slideStages.classList.remove('opacity-100', 'translate-y-0');
-                    currentState = 6; setTimeout(() => { isAnimating = false; }, 800);
-                }
-                else if (currentState === 6) {
-                    e.preventDefault();
-                    if (currentProject > 0) {
-                        isAnimating = true;
-                        projects[currentProject].classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-                        projects[currentProject].classList.remove('opacity-100', 'translate-y-0');
-                        currentProject--;
-                        projects[currentProject].classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-                        projects[currentProject].classList.add('opacity-100', 'translate-y-0');
-                        setTimeout(() => { isAnimating = false; }, 800);
-                    } else {
-                        isAnimating = true;
-                        screen3.classList.remove('opacity-0', 'pointer-events-none'); screen4.classList.add('opacity-0', 'pointer-events-none');
-                        slideCarousel.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); slideCarousel.classList.remove('opacity-100', 'translate-y-0');
-                        if (oceanVideo) oceanVideo.play();
-                        currentState = 5; setTimeout(() => { isAnimating = false; }, 800);
-                    }
-                }
-                else if (currentState === 5) {
-                    e.preventDefault(); isAnimating = true;
-                    oceanTitle.classList.remove('opacity-0', 'translate-y-10'); oceanTitle.classList.add('opacity-100', 'translate-y-0');
-                    oceanCards.classList.add('opacity-0', 'translate-y-10'); oceanCards.classList.remove('opacity-100', 'translate-y-0');
-                    currentState = 4; setTimeout(() => { isAnimating = false; }, 800);
-                }
-                else if (currentState === 4) {
-                    e.preventDefault(); isAnimating = true;
-                    screen2.classList.remove('opacity-0', 'pointer-events-none'); screen3.classList.add('opacity-0', 'pointer-events-none');
-                    oceanTitle.classList.add('opacity-0', 'translate-y-10'); oceanTitle.classList.remove('opacity-100', 'translate-y-0');
-                    if (oceanVideo) oceanVideo.pause();
-                    birdContainer.style.opacity = '1'; isBirdFlying = true; birdProgress = 0; currentFrameIndex = 0;
-                    birdA.src = birdFrames[0]; birdB.src = birdFrames[0]; birdA.style.opacity = '1'; birdB.style.opacity = '0'; isLayerAActive = true;
-                    flyBird();
-                    setTimeout(() => { birdContent.classList.remove('opacity-0', 'translate-y-10'); birdContent.classList.add('opacity-100', 'translate-y-0'); }, 200);
-                    currentState = 3; setTimeout(() => { isAnimating = false; }, 800);
-                }
-                else if (currentState === 3) {
-                    e.preventDefault(); isAnimating = true;
-                    screen1.classList.remove('opacity-0', 'pointer-events-none'); screen2.classList.add('opacity-0', 'pointer-events-none');
-                    birdContent.classList.add('opacity-0', 'translate-y-10'); birdContent.classList.remove('opacity-100', 'translate-y-0');
-                    isBirdFlying = false; 
-                    
-                    if (window.innerWidth < 1024) {
-                        advRow1.classList.add('hidden'); advRow1.classList.remove('grid');
-                        advRow2.classList.remove('hidden'); advRow2.classList.add('grid');
-                        currentState = 2;
-                    } else {
-                        advRow1.classList.remove('hidden'); advRow1.classList.add('grid');
-                        advRow2.classList.remove('hidden'); advRow2.classList.add('grid');
-                        currentState = 1;
-                    }
+            }
+            else if (currentState === 7) {
+                isAnimating = true;
+                slideStages.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); slideStages.classList.remove('opacity-100', 'translate-y-0');
+                slideContacts.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); slideContacts.classList.add('opacity-100', 'translate-y-0');
+                currentState = 8; setTimeout(() => { isAnimating = false; }, 800);
+            }
+        };
+
+        const scrollUp = () => {
+            if (isAnimating) return;
+
+            if (currentState === 8) {
+                isAnimating = true;
+                slideStages.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); slideStages.classList.add('opacity-100', 'translate-y-0');
+                slideContacts.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); slideContacts.classList.remove('opacity-100', 'translate-y-0');
+                currentState = 7; setTimeout(() => { isAnimating = false; }, 800);
+            }
+            else if (currentState === 7) {
+                isAnimating = true;
+                slideCarousel.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); slideCarousel.classList.add('opacity-100', 'translate-y-0');
+                slideStages.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); slideStages.classList.remove('opacity-100', 'translate-y-0');
+                currentState = 6; setTimeout(() => { isAnimating = false; }, 800);
+            }
+            else if (currentState === 6) {
+                if (currentProject > 0) {
+                    isAnimating = true;
+                    projects[currentProject].classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    projects[currentProject].classList.remove('opacity-100', 'translate-y-0');
+                    currentProject--;
+                    projects[currentProject].classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    projects[currentProject].classList.add('opacity-100', 'translate-y-0');
                     setTimeout(() => { isAnimating = false; }, 800);
+                } else {
+                    isAnimating = true;
+                    screen3.classList.remove('opacity-0', 'pointer-events-none'); screen4.classList.add('opacity-0', 'pointer-events-none');
+                    slideCarousel.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); slideCarousel.classList.remove('opacity-100', 'translate-y-0');
+                    if (oceanVideo) oceanVideo.play();
+                    currentState = 5; setTimeout(() => { isAnimating = false; }, 800);
                 }
-                else if (currentState === 2) {
-                    e.preventDefault(); isAnimating = true;
+            }
+            else if (currentState === 5) {
+                isAnimating = true;
+                oceanTitle.classList.remove('opacity-0', 'translate-y-10'); oceanTitle.classList.add('opacity-100', 'translate-y-0');
+                oceanCards.classList.add('opacity-0', 'translate-y-10'); oceanCards.classList.remove('opacity-100', 'translate-y-0');
+                currentState = 4; setTimeout(() => { isAnimating = false; }, 800);
+            }
+            else if (currentState === 4) {
+                isAnimating = true;
+                screen2.classList.remove('opacity-0', 'pointer-events-none'); screen3.classList.add('opacity-0', 'pointer-events-none');
+                oceanTitle.classList.add('opacity-0', 'translate-y-10'); oceanTitle.classList.remove('opacity-100', 'translate-y-0');
+                if (oceanVideo) oceanVideo.pause();
+                birdContainer.style.opacity = '1'; isBirdFlying = true; birdProgress = 0; currentFrameIndex = 0;
+                birdA.src = birdFrames[0]; birdB.src = birdFrames[0]; birdA.style.opacity = '1'; birdB.style.opacity = '0'; isLayerAActive = true;
+                flyBird();
+                setTimeout(() => { birdContent.classList.remove('opacity-0', 'translate-y-10'); birdContent.classList.add('opacity-100', 'translate-y-0'); }, 200);
+                currentState = 3; setTimeout(() => { isAnimating = false; }, 800);
+            }
+            else if (currentState === 3) {
+                isAnimating = true;
+                screen1.classList.remove('opacity-0', 'pointer-events-none'); screen2.classList.add('opacity-0', 'pointer-events-none');
+                birdContent.classList.add('opacity-0', 'translate-y-10'); birdContent.classList.remove('opacity-100', 'translate-y-0');
+                isBirdFlying = false; 
+                
+                if (window.innerWidth < 1024) {
+                    advRow1.classList.add('hidden'); advRow1.classList.remove('grid');
+                    advRow2.classList.remove('hidden'); advRow2.classList.add('grid');
+                    currentState = 2;
+                } else {
                     advRow1.classList.remove('hidden'); advRow1.classList.add('grid');
-                    advRow2.classList.add('hidden'); advRow2.classList.remove('grid');
-                    currentState = 1; setTimeout(() => { isAnimating = false; }, 800);
+                    advRow2.classList.remove('hidden'); advRow2.classList.add('grid');
+                    currentState = 1;
                 }
-                else if (currentState === 1) {
-                    e.preventDefault(); isAnimating = true;
-                    heroText.classList.remove('opacity-0', 'translate-y-10'); heroText.classList.add('opacity-100');
-                    // Возвращаем фото (всем устройствам)
-                    heroPhoto.style.opacity = '1';
-                    
-                    advantagesBlock.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10'); advantagesBlock.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
-                    currentState = 0; setTimeout(() => { isAnimating = false; }, 800);
-                }
+                setTimeout(() => { isAnimating = false; }, 800);
+            }
+            else if (currentState === 2) {
+                isAnimating = true;
+                advRow1.classList.remove('hidden'); advRow1.classList.add('grid');
+                advRow2.classList.add('hidden'); advRow2.classList.remove('grid');
+                currentState = 1; setTimeout(() => { isAnimating = false; }, 800);
+            }
+            else if (currentState === 1) {
+                isAnimating = true;
+                heroText.classList.remove('opacity-0', 'translate-y-10'); heroText.classList.add('opacity-100');
+                if (heroPhoto) heroPhoto.style.opacity = '1';
+                advantagesBlock.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10'); advantagesBlock.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                currentState = 0; setTimeout(() => { isAnimating = false; }, 800);
+            }
+        };
+
+        // === ОБРАБОТЧИКИ СОБЫТИЙ ===
+        
+        // Для компьютеров (колесико)
+        window.addEventListener('wheel', (e) => {
+            if (e.deltaY > 0) {
+                scrollDown();
+            } else if (e.deltaY < 0) {
+                scrollUp();
             }
         }, { passive: false });
 
+        // Для мобильных (свайпы)
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].screenY;
+            const distance = touchStartY - touchEndY;
+            
+            // Если свайп больше 50 пикселей
+            if (Math.abs(distance) > 50) {
+                if (distance > 0) {
+                    scrollDown(); // Свайп вверх = скролл вниз
+                } else {
+                    scrollUp(); // Свайп вниз = скролл вверх
+                }
+            }
+        }, { passive: true });
+
+        // === ЛОГИКА ПТИЦЫ ===
         const flyBird = () => {
             if (!isBirdFlying) return;
             birdProgress += 0.015;
@@ -697,6 +724,7 @@
             if (birdProgress < 1) { birdRafId = requestAnimationFrame(flyBird); }
         };
 
+        // === ЛОГИКА КАРУСЕЛИ ===
         const carousels = document.querySelectorAll('.carousel-container');
         carousels.forEach(container => {
             let currentIndex = 0;
@@ -705,8 +733,10 @@
             const prevBtn = container.querySelector('.carousel-prev');
             const nextBtn = container.querySelector('.carousel-next');
             const updateCarousel = () => { track.style.transform = `translateX(-${currentIndex * 100}%)`; };
+            
             nextBtn.addEventListener('click', (e) => { e.stopPropagation(); currentIndex = (currentIndex + 1) % images.length; updateCarousel(); });
             prevBtn.addEventListener('click', (e) => { e.stopPropagation(); currentIndex = (currentIndex - 1 + images.length) % images.length; updateCarousel(); });
+            
             let touchStartX = 0, touchEndX = 0;
             container.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
             container.addEventListener('touchend', (e) => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); }, { passive: true });
@@ -716,15 +746,14 @@
             };
         });
 
-        // Навигация
+        // === НАВИГАЦИЯ ПО ХЕДЕРУ ===
         document.addEventListener('click', (e) => {
             const link = e.target.closest('.nav-link');
             if (!link) return;
             e.preventDefault();
             const target = link.getAttribute('data-target');
 
-            // По умолчанию возвращаем фото
-            heroPhoto.style.opacity = '1';
+            if (heroPhoto) heroPhoto.style.opacity = '1';
 
             screen1.classList.add('opacity-0', 'pointer-events-none');
             screen2.classList.add('opacity-0', 'pointer-events-none');
@@ -743,15 +772,16 @@
                 screen1.classList.remove('opacity-0', 'pointer-events-none');
                 advantagesBlock.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10'); advantagesBlock.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
                 
-                // Скрываем фото ТОЛЬКО на мобилках
                 if (window.innerWidth < 1024) {
-                    heroPhoto.style.opacity = '0';
+                    if (heroPhoto) heroPhoto.style.opacity = '0';
+                    advRow1.classList.remove('hidden'); advRow1.classList.add('grid');
+                    advRow2.classList.add('hidden'); advRow2.classList.remove('grid');
+                    currentState = 1;
+                } else {
+                    advRow1.classList.remove('hidden'); advRow1.classList.add('grid');
+                    advRow2.classList.remove('hidden'); advRow2.classList.add('grid');
+                    currentState = 1; 
                 }
-                
-                advRow1.classList.remove('hidden'); advRow1.classList.add('grid');
-                if (window.innerWidth < 1024) { advRow2.classList.add('hidden'); advRow2.classList.remove('grid'); }
-                else { advRow2.classList.remove('hidden'); advRow2.classList.add('grid'); }
-                currentState = 1; 
             } 
             else if (target === 'ocean') {
                 screen3.classList.remove('opacity-0', 'pointer-events-none');
@@ -771,6 +801,7 @@
             }
         });
 
+        // === ЭФФЕКТ ШЛЕЙФА (ПУЗЫРЬКИ) ===
         let lastTime = 0;
         const throttleDelay = 30;
         document.addEventListener('mousemove', (e) => {
