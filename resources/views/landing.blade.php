@@ -7,22 +7,22 @@
             <!-- ЭКРАН 1 -->
             <div id="screen-1" class="absolute inset-0 w-full h-[100dvh] transition-opacity duration-700 z-10 bg-cover bg-center bg-no-repeat overflow-hidden" style="background-image: url('{{ asset('images/landingbg.jpeg') }}');">
                 <div class="w-full h-full flex flex-col-reverse lg:flex-row relative">
-                    <div id="hero-photo" class="relative w-full h-[35%] max-h-[35%] lg:h-full lg:max-h-none lg:absolute lg:left-0 lg:bottom-0 lg:w-[45%] xl:w-[50%] z-10 flex justify-start items-end pointer-events-none transition-opacity duration-700 overflow-hidden">
+                    <div id="hero-photo" class="relative w-full h-[45%] lg:h-full lg:absolute lg:left-0 lg:bottom-0 lg:w-[45%] xl:w-[50%] z-10 flex justify-start lg:justify-start items-end pointer-events-none mt-4 lg:mt-0 transition-opacity duration-700">
                         <img src="{{ asset('images/landingme.png') }}" alt="Анастасия Милова"
-                             class="w-[85%] lg:w-full h-full object-contain object-left-bottom -ml-0 lg:-ml-12 translate-y-0 lg:translate-y-12 -mb-0 lg:-mb-20">
+                             class="w-[85%] lg:w-full h-full object-contain object-left-bottom lg:object-left-bottom -ml-0 lg:-ml-12 translate-y-[20%] lg:translate-y-12 -mb-0 lg:-mb-20">
                     </div>
-                    <div id="hero-text" class="w-full h-[65%] lg:h-full flex items-start lg:items-center justify-center lg:justify-end relative z-20 pt-4 lg:pt-24 transition-all duration-700">
+                    <div id="hero-text" class="w-full h-[55%] lg:h-full flex items-start lg:items-center justify-center lg:justify-end relative z-20 pt-20 lg:pt-24 transition-all duration-700">
                         <div class="w-full max-w-[1200px] mx-auto px-4 lg:px-12 xl:px-20 flex justify-center lg:justify-end">
                             <div class="w-full max-w-[700px] flex flex-col items-center pt-2 lg:pt-0">
-                                <div class="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full bg-white/60 backdrop-blur-md border border-white/50 shadow-sm mb-3 lg:mb-6">
+                                <div class="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full bg-white/60 backdrop-blur-md border border-white/50 shadow-sm mb-2 lg:mb-6">
                                     <span class="text-[#d18f2d] text-sm">✨</span>
                                     <span class="text-xs lg:text-sm font-medium text-slate-700">Современные сайты для вашего бизнеса</span>
                                 </div>
-                                <h1 class="text-3xl sm:text-4xl lg:text-4xl xl:text-6xl font-extrabold text-slate-800 text-center leading-tight mb-3 lg:mb-6 w-full">
+                                <h1 class="text-3xl sm:text-4xl lg:text-4xl xl:text-6xl font-extrabold text-slate-800 text-center leading-tight mb-2 lg:mb-6 w-full">
                                     Создаю сайты, <br> которые открывают <br>
                                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#d18f2d] to-[#b08951]">новые горизонты</span>
                                 </h1>
-                                <p class="text-sm lg:text-base xl:text-lg text-slate-600 text-center mb-5 lg:mb-8 w-full max-w-[450px] leading-relaxed font-medium">
+                                <p class="text-sm lg:text-base xl:text-lg text-slate-600 text-center mb-4 lg:mb-8 w-full max-w-[450px] leading-relaxed font-medium">
                                     Стильные &middot; Современные &middot; Работают на ваш бизнес &middot; Приводят клиентов
                                 </p>
                                 <div class="w-full flex justify-center">
@@ -372,17 +372,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const birdContainer = birdA.parentElement;
     const birdFrames = Array.from({ length: 41 }, (_, i) => `{{ asset('images/bird') }}/${i + 1}.png`);
 
-    // === ПТИЦА: бесконечный полёт, без fadeOut ===
+    // === ПТИЦА: один полёт, с предзагрузкой кадров ===
     let currentFrameIndex = 0;
     let isLayerAActive = true;
     let birdRafId = null;
     let birdProgress = 0;
     let isBirdFlying = false;
+    let birdFramesLoaded = false;
+
+    const preloadBirdFrames = () => Promise.all(birdFrames.map(src => new Promise(resolve => {
+        const img = new Image();
+        img.onload = img.onerror = resolve;
+        img.src = src;
+    })));
+
+    preloadBirdFrames().then(() => { birdFramesLoaded = true; });
 
     const flyBird = () => {
         if (!isBirdFlying) return;
-        birdProgress += 0.015;
-        if (birdProgress > 1) birdProgress = 0;
+        birdProgress += 0.008;
+        if (birdProgress >= 1) {
+            birdProgress = 1;
+            isBirdFlying = false;
+            birdA.src = birdFrames[birdFrames.length - 1];
+            birdA.style.opacity = '1'; birdB.style.opacity = '0';
+            birdContainer.style.opacity = '0';
+            return;
+        }
         const totalFrames = birdFrames.length;
         const targetIndex = Math.min(Math.floor(birdProgress * totalFrames), totalFrames - 1);
         if (targetIndex !== currentFrameIndex && targetIndex >= 0) {
@@ -395,14 +411,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const startBirdFlight = () => {
         if (!birdContainer) return;
-        cancelAnimationFrame(birdRafId);
-        birdContainer.style.opacity = '1';
-        isBirdFlying = true;
-        birdProgress = 0;
-        currentFrameIndex = 0;
-        birdA.src = birdFrames[0]; birdB.src = birdFrames[0];
-        birdA.style.opacity = '1'; birdB.style.opacity = '0'; isLayerAActive = true;
-        flyBird();
+        const run = () => {
+            cancelAnimationFrame(birdRafId);
+            birdContainer.style.opacity = '1';
+            isBirdFlying = true;
+            birdProgress = 0;
+            currentFrameIndex = 0;
+            birdA.src = birdFrames[0]; birdB.src = birdFrames[0];
+            birdA.style.opacity = '1'; birdB.style.opacity = '0'; isLayerAActive = true;
+            flyBird();
+        };
+        if (birdFramesLoaded) run();
+        else preloadBirdFrames().then(() => { birdFramesLoaded = true; run(); });
     };
 
     const stopBirdFlight = () => { isBirdFlying = false; cancelAnimationFrame(birdRafId); };
