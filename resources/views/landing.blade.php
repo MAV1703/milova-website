@@ -178,6 +178,9 @@
                         <!-- ========================================== -->
             <!-- ЭКРАН 3: ОКЕАН И ВОЗМОЖНОСТИ -->
             <!-- ========================================== -->
+                        <!-- ========================================== -->
+            <!-- ЭКРАН 3: ОКЕАН И ВОЗМОЖНОСТИ -->
+            <!-- ========================================== -->
             <div id="screen-3" class="absolute inset-0 w-full h-full z-30 opacity-0 pointer-events-none transition-opacity duration-700 bg-[#e0f2fe]">
                 
                 <!-- ВИДЕО С ОКЕАНОМ -->
@@ -205,68 +208,65 @@
                 <!-- СЛОЙ 3: Карточки и кнопка -->
                 <div id="ocean-cards" class="absolute inset-0 z-20 flex flex-col items-center justify-center px-2 lg:px-8 opacity-0 translate-y-10 transition-all duration-700 pt-20 lg:pt-24">
                     
-                    <div class="w-full max-w-[1100px] flex flex-col items-center">
+                    <!-- На больших экранах расширили контейнер до 1400px -->
+                    <div class="w-full max-w-[1100px] xl:max-w-[1400px] flex flex-col items-center">
                         
-                        <!-- Сетка карточек: 2 колонки на мобилке, 3 на ноутбуке -->
-                        <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 lg:gap-4 w-full mb-4 lg:mb-6">
+                        <!-- Сетка карточек -->
+                        <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 lg:gap-6 w-full mb-4 lg:mb-8">
                             
                             <!-- 1. Лендинг -->
-                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl p-3 flex flex-col items-center text-center shadow-lg">
-                                <h3 class="text-[11px] lg:text-base font-bold text-[#0f2a55] mb-1 leading-tight">Лендинг</h3>
-                                <p class="text-[9px] lg:text-xs text-slate-600 mb-2 leading-tight">Эффектно заявите о себе.</p>
-                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-sm bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 10 000 ₽</div>
+                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl lg:rounded-2xl p-3 lg:p-6 flex flex-col items-center text-center shadow-lg">
+                                <h3 class="text-[11px] lg:text-xl font-bold text-[#0f2a55] mb-1 leading-tight">Лендинг</h3>
+                                <p class="text-[9px] lg:text-sm text-slate-600 mb-2 leading-tight">Эффектно заявите о себе.</p>
+                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-lg bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 10 000 ₽</div>
                             </div>
 
                             <!-- 2. Сайт-визитка -->
-                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl p-3 flex flex-col items-center text-center shadow-lg">
-                                <h3 class="text-[11px] lg:text-base font-bold text-[#0f2a55] mb-1 leading-tight">Сайт-визитка</h3>
-                                <p class="text-[9px] lg:text-xs text-slate-600 mb-2 leading-tight">Для экспертов и услуг.</p>
-                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-sm bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 15 000 ₽</div>
+                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl lg:rounded-2xl p-3 lg:p-6 flex flex-col items-center text-center shadow-lg">
+                                <h3 class="text-[11px] lg:text-xl font-bold text-[#0f2a55] mb-1 leading-tight">Сайт-визитка</h3>
+                                <p class="text-[9px] lg:text-sm text-slate-600 mb-2 leading-tight">Для экспертов и услуг.</p>
+                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-lg bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 15 000 ₽</div>
                             </div>
 
                             <!-- 3. Система приёма клиентов -->
-                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl p-3 flex flex-col items-center text-center shadow-lg">
-                                <h3 class="text-[11px] lg:text-base font-bold text-[#0f2a55] mb-1 leading-tight">Приём клиентов</h3>
-                                <p class="text-[9px] lg:text-xs text-slate-600 mb-2 leading-tight">Заявки и записи в порядке.</p>
-                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-sm bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 25 000 ₽</div>
+                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl lg:rounded-2xl p-3 lg:p-6 flex flex-col items-center text-center shadow-lg">
+                                <h3 class="text-[11px] lg:text-xl font-bold text-[#0f2a55] mb-1 leading-tight">Приём клиентов</h3>
+                                <p class="text-[9px] lg:text-sm text-slate-600 mb-2 leading-tight">Заявки и записи в порядке.</p>
+                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-lg bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 25 000 ₽</div>
                             </div>
 
                             <!-- 4. Сайт-портфолио -->
-                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl p-3 flex flex-col items-center text-center shadow-lg">
-                                <h3 class="text-[11px] lg:text-base font-bold text-[#0f2a55] mb-1 leading-tight">Сайт-портфолио</h3>
-                                <p class="text-[9px] lg:text-xs text-slate-600 mb-2 leading-tight">Покажите работы красиво.</p>
-                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-sm bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 25 000 ₽</div>
+                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl lg:rounded-2xl p-3 lg:p-6 flex flex-col items-center text-center shadow-lg">
+                                <h3 class="text-[11px] lg:text-xl font-bold text-[#0f2a55] mb-1 leading-tight">Сайт-портфолио</h3>
+                                <p class="text-[9px] lg:text-sm text-slate-600 mb-2 leading-tight">Покажите работы красиво.</p>
+                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-lg bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 25 000 ₽</div>
                             </div>
 
                             <!-- 5. Интернет-магазин -->
-                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl p-3 flex flex-col items-center text-center shadow-lg">
-                                <h3 class="text-[11px] lg:text-base font-bold text-[#0f2a55] mb-1 leading-tight">Интернет-магазин</h3>
-                                <p class="text-[9px] lg:text-xs text-slate-600 mb-2 leading-tight">Продажи 24/7 с оплатой.</p>
-                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-sm bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 30 000 ₽</div>
+                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl lg:rounded-2xl p-3 lg:p-6 flex flex-col items-center text-center shadow-lg">
+                                <h3 class="text-[11px] lg:text-xl font-bold text-[#0f2a55] mb-1 leading-tight">Интернет-магазин</h3>
+                                <p class="text-[9px] lg:text-sm text-slate-600 mb-2 leading-tight">Продажи 24/7 с оплатой.</p>
+                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-lg bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 30 000 ₽</div>
                             </div>
 
                             <!-- 6. Корпоративный сайт -->
-                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl p-3 flex flex-col items-center text-center shadow-lg">
-                                <h3 class="text-[11px] lg:text-base font-bold text-[#0f2a55] mb-1 leading-tight">Корпоративный сайт</h3>
-                                <p class="text-[9px] lg:text-xs text-slate-600 mb-2 leading-tight">Для солидных компаний.</p>
-                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-sm bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 30 000 ₽</div>
+                            <div class="bg-white/90 backdrop-blur-xl border border-white/60 rounded-xl lg:rounded-2xl p-3 lg:p-6 flex flex-col items-center text-center shadow-lg">
+                                <h3 class="text-[11px] lg:text-xl font-bold text-[#0f2a55] mb-1 leading-tight">Корпоративный сайт</h3>
+                                <p class="text-[9px] lg:text-sm text-slate-600 mb-2 leading-tight">Для солидных компаний.</p>
+                                <div class="text-[#d18f2d] font-bold text-[10px] lg:text-lg bg-white/90 px-2 py-0.5 rounded-md shadow-sm mt-auto">от 30 000 ₽</div>
                             </div>
 
                         </div>
 
                         <!-- Кнопка -->
-                        <a href="https://vk.ru/club242088678" target="_blank" class="inline-flex items-center gap-2 px-6 py-2.5 lg:px-8 lg:py-3 rounded-full bg-gradient-to-r from-[#f6ebca] to-[#d18f2d] hover:from-[#e5bb73] hover:to-[#b08951] text-[#0f2a55] font-bold text-xs lg:text-base shadow-[0_0_30px_rgba(229,187,115,0.5)] hover:shadow-[0_0_40px_rgba(229,187,115,0.8)] hover:scale-105 transition-all duration-300">
+                        <a href="https://vk.ru/club242088678" target="_blank" class="inline-flex items-center gap-2 px-6 py-2.5 lg:px-10 lg:py-4 rounded-full bg-gradient-to-r from-[#f6ebca] to-[#d18f2d] hover:from-[#e5bb73] hover:to-[#b08951] text-[#0f2a55] font-bold text-xs lg:text-lg shadow-[0_0_30px_rgba(229,187,115,0.5)] hover:shadow-[0_0_40px_rgba(229,187,115,0.8)] hover:scale-105 transition-all duration-300">
                             Обсудить проект
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            <svg class="w-4 h-4 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </a>
 
                     </div>
                 </div>
             </div>
-			           
-                        <!-- ========================================== -->
-            <!-- ЭКРАН 4: ПОРТФОЛИО -->
-            <!-- ========================================== -->
                         <!-- ========================================== -->
             <!-- ЭКРАН 4: ПОРТФОЛИО -->
             <!-- ========================================== -->
