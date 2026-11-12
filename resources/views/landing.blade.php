@@ -2,16 +2,16 @@
     <x-landing-layout>
         <x-slot:title>{{ $title }}</x-slot>
 
-        <div id="main-container" class="relative w-full h-screen overflow-hidden">
+        <div id="main-container" class="relative w-full h-[100dvh] overflow-hidden">
 
             <!-- ЭКРАН 1 -->
-            <div id="screen-1" class="absolute inset-0 w-full h-full transition-opacity duration-700 z-10 bg-cover bg-center bg-no-repeat overflow-hidden" style="background-image: url('{{ asset('images/landingbg.jpeg') }}');">
+            <div id="screen-1" class="absolute inset-0 w-full h-[100dvh] transition-opacity duration-700 z-10 bg-cover bg-center bg-no-repeat overflow-hidden" style="background-image: url('{{ asset('images/landingbg.jpeg') }}');">
                 <div class="w-full h-full flex flex-col-reverse lg:flex-row relative">
-                    <div id="hero-photo" class="relative w-full h-[38%] lg:h-full lg:absolute lg:left-0 lg:bottom-0 lg:w-[45%] xl:w-[50%] z-10 flex justify-start items-end pointer-events-none transition-opacity duration-700 overflow-hidden">
+                    <div id="hero-photo" class="relative w-full h-[35%] max-h-[35%] lg:h-full lg:max-h-none lg:absolute lg:left-0 lg:bottom-0 lg:w-[45%] xl:w-[50%] z-10 flex justify-start items-end pointer-events-none transition-opacity duration-700 overflow-hidden">
                         <img src="{{ asset('images/landingme.png') }}" alt="Анастасия Милова"
                              class="w-[85%] lg:w-full h-full object-contain object-left-bottom -ml-0 lg:-ml-12 translate-y-0 lg:translate-y-12 -mb-0 lg:-mb-20">
                     </div>
-                    <div id="hero-text" class="w-full h-[62%] lg:h-full flex items-start lg:items-center justify-center lg:justify-end relative z-20 pt-16 lg:pt-24 transition-all duration-700">
+                    <div id="hero-text" class="w-full h-[65%] lg:h-full flex items-start lg:items-center justify-center lg:justify-end relative z-20 pt-4 lg:pt-24 transition-all duration-700">
                         <div class="w-full max-w-[1200px] mx-auto px-4 lg:px-12 xl:px-20 flex justify-center lg:justify-end">
                             <div class="w-full max-w-[700px] flex flex-col items-center pt-2 lg:pt-0">
                                 <div class="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full bg-white/60 backdrop-blur-md border border-white/50 shadow-sm mb-3 lg:mb-6">
@@ -342,7 +342,6 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // === ЭЛЕМЕНТЫ ===
     const screen1 = document.getElementById('screen-1');
     const screen2 = document.getElementById('screen-2');
     const screen3 = document.getElementById('screen-3');
@@ -373,7 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const birdContainer = birdA.parentElement;
     const birdFrames = Array.from({ length: 41 }, (_, i) => `{{ asset('images/bird') }}/${i + 1}.png`);
 
-    // === ПТИЦА ===
+    // === ПТИЦА: бесконечный полёт, без fadeOut ===
     let currentFrameIndex = 0;
     let isLayerAActive = true;
     let birdRafId = null;
@@ -383,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const flyBird = () => {
         if (!isBirdFlying) return;
         birdProgress += 0.015;
-        if (birdProgress > 1) birdProgress = 1;
+        if (birdProgress > 1) birdProgress = 0;
         const totalFrames = birdFrames.length;
         const targetIndex = Math.min(Math.floor(birdProgress * totalFrames), totalFrames - 1);
         if (targetIndex !== currentFrameIndex && targetIndex >= 0) {
@@ -391,18 +390,16 @@ document.addEventListener('DOMContentLoaded', () => {
             else { birdA.src = birdFrames[targetIndex]; birdA.style.opacity = '1'; birdB.style.opacity = '0'; }
             isLayerAActive = !isLayerAActive; currentFrameIndex = targetIndex;
         }
-        if (birdProgress > 0.85) {
-            const fadeOutProgress = (birdProgress - 0.85) / 0.15;
-            birdContainer.style.opacity = 1 - fadeOutProgress;
-        }
-        if (birdProgress < 1) { birdRafId = requestAnimationFrame(flyBird); }
+        birdRafId = requestAnimationFrame(flyBird);
     };
 
     const startBirdFlight = () => {
         if (!birdContainer) return;
         cancelAnimationFrame(birdRafId);
         birdContainer.style.opacity = '1';
-        isBirdFlying = true; birdProgress = 0; currentFrameIndex = 0;
+        isBirdFlying = true;
+        birdProgress = 0;
+        currentFrameIndex = 0;
         birdA.src = birdFrames[0]; birdB.src = birdFrames[0];
         birdA.style.opacity = '1'; birdB.style.opacity = '0'; isLayerAActive = true;
         flyBird();
@@ -467,7 +464,6 @@ document.addEventListener('DOMContentLoaded', () => {
             isAnimating = true;
             screen2.classList.add('opacity-0', 'pointer-events-none'); screen3.classList.remove('opacity-0', 'pointer-events-none');
             birdContent.classList.add('opacity-0', 'translate-y-10'); birdContent.classList.remove('opacity-100', 'translate-y-0');
-            stopBirdFlight();
             if (oceanVideo) oceanVideo.play();
             oceanTitle.classList.remove('opacity-0', 'translate-y-10'); oceanTitle.classList.add('opacity-100', 'translate-y-0');
             currentState = 4; lockFor(800);
@@ -591,7 +587,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // === ДЕСКТОП: колесико ===
     window.addEventListener('wheel', (e) => {
         if (window.innerWidth >= 1024) {
             if (e.deltaY > 0) scrollDown();
@@ -599,11 +594,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: false });
 
-    // === МОБИЛКА: свайп на контейнере, порог 60px, только вертикальный жест ===
     const container = document.getElementById('main-container');
     let touchStartY = 0;
     let touchStartX = 0;
-    let touchStartTime = 0;
     let touchLock = false;
 
     container.addEventListener('touchstart', (e) => {
@@ -611,7 +604,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const t = e.touches[0];
         touchStartY = t.clientY;
         touchStartX = t.clientX;
-        touchStartTime = Date.now();
         touchLock = false;
     }, { passive: true });
 
@@ -621,16 +613,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const deltaY = touchStartY - t.clientY;
         const deltaX = touchStartX - t.clientX;
 
-        // Только вертикальный жест: |deltaY| > |deltaX| и > 60px
         if (Math.abs(deltaY) > 60 && Math.abs(deltaY) > Math.abs(deltaX) * 1.5) {
             touchLock = true;
             if (deltaY > 0) scrollDown();
             else scrollUp();
-            setTimeout(() => { touchLock = false; }, 800);
+            setTimeout(() => { touchLock = false; }, 500);
         }
     }, { passive: true });
 
-    // === КАРУСЕЛИ ===
     document.querySelectorAll('.carousel-container').forEach(container => {
         let currentIndex = 0;
         const track = container.querySelector('.carousel-track');
@@ -649,7 +639,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // === ПУЗЫРЬКИ ===
     let lastTime = 0;
     const throttleDelay = 30;
     document.addEventListener('mousemove', (e) => {
