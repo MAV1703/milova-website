@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta property="og:image" content="{{ asset('images/typingme1.jpeg') }}">
+        <meta property="og:image" content="{{ asset('images/icon.png') }}">
 		<meta name="description" content="Разработка современных сайтов на Laravel + Livewire. Лендинги, корпоративные сайты, системы управления заказами. От 15 000 ₽.">
         <title>{{ $title}}</title>
 		<link rel="icon" href="{{ asset('images/fav1.jpeg') }}" type="image/png">
