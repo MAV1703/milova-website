@@ -614,6 +614,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: false });
 
+    // === МОБИЛКА: свайп с fallback на touchend ===
     const container = document.getElementById('main-container');
     let touchStartY = 0;
     let touchStartX = 0;
@@ -633,11 +634,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const deltaY = touchStartY - t.clientY;
         const deltaX = touchStartX - t.clientX;
 
-        if (Math.abs(deltaY) > 60 && Math.abs(deltaY) > Math.abs(deltaX) * 1.5) {
+        if (Math.abs(deltaX) > Math.abs(deltaY)) return;
+
+        if (Math.abs(deltaY) > 50) {
             touchLock = true;
             if (deltaY > 0) scrollDown();
             else scrollUp();
-            setTimeout(() => { touchLock = false; }, 500);
+            setTimeout(() => { touchLock = false; }, 450);
+        }
+    }, { passive: true });
+
+    container.addEventListener('touchend', (e) => {
+        if (window.innerWidth >= 1024) return;
+        if (touchLock) return;
+        const t = e.changedTouches[0];
+        const deltaY = touchStartY - t.clientY;
+        const deltaX = touchStartX - t.clientX;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) return;
+
+        if (Math.abs(deltaY) > 50) {
+            touchLock = true;
+            if (deltaY > 0) scrollDown();
+            else scrollUp();
+            setTimeout(() => { touchLock = false; }, 450);
         }
     }, { passive: true });
 
