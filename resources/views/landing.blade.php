@@ -2,10 +2,10 @@
     <x-landing-layout>
         <x-slot:title>{{ $title }}</x-slot>
 
-        <div id="main-container" class="relative w-full h-[100dvh] overflow-hidden">
+        <div id="main-container" class="relative w-full h-screen overflow-hidden">
 
             <!-- ЭКРАН 1 -->
-            <div id="screen-1" class="absolute inset-0 w-full h-[100dvh] transition-opacity duration-700 z-10 bg-cover bg-center bg-no-repeat overflow-hidden" style="background-image: url('{{ asset('images/landingbg.jpeg') }}');">
+            <div id="screen-1" class="absolute inset-0 w-full h-full transition-opacity duration-700 z-10 bg-cover bg-center bg-no-repeat overflow-hidden" style="background-image: url('{{ asset('images/landingbg.jpeg') }}');">
                 <div class="w-full h-full flex flex-col-reverse lg:flex-row relative">
                     <div id="hero-photo" class="relative w-full h-[45%] lg:h-full lg:absolute lg:left-0 lg:bottom-0 lg:w-[45%] xl:w-[50%] z-10 flex justify-start lg:justify-start items-end pointer-events-none mt-4 lg:mt-0 transition-opacity duration-700">
                         <img src="{{ asset('images/landingme.png') }}" alt="Анастасия Милова"
@@ -173,7 +173,7 @@
 
             <!-- ЭКРАН 4 -->
             <div id="screen-4" class="absolute inset-0 w-full h-full z-40 opacity-0 pointer-events-none transition-opacity duration-700 bg-cover bg-center bg-no-repeat overflow-hidden" style="background-image: url('{{ asset('images/landingbg.jpeg') }}');">
-                <div class="relative z-10 w-full h-full flex flex-col items-center pt-20 lg:pt-28 pb-10">
+                <div class="relative z-10 w-full h-full flex flex-col items-center pt-20 lg:pt-28 pb-10 overflow-y-auto lg:overflow-hidden">
                     <div id="slide-carousel" class="absolute inset-0 pt-20 lg:pt-28 pb-10 flex flex-col items-center justify-center px-4 lg:px-6 transition-all duration-700 opacity-100 translate-y-0">
                         <div class="text-center mb-4 lg:mb-8">
                             <h2 class="text-2xl lg:text-6xl font-extrabold text-[#0f2a55] mb-2 drop-shadow-sm">Примеры работ</h2>
@@ -282,36 +282,38 @@
                         </div>
                     </div>
 
-                    <div id="slide-stages" class="absolute inset-0 pt-20 lg:pt-28 pb-10 flex flex-col items-center justify-center px-4 lg:px-6 transition-all duration-700 opacity-0 translate-y-10 pointer-events-none">
-                        <h3 class="text-2xl lg:text-5xl font-extrabold text-[#0f2a55] mb-6 lg:mb-12 text-center drop-shadow-sm">Как мы будем работать</h3>
-                        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-6 w-full max-w-[1100px]">
-                            <div class="bg-white/80 backdrop-blur-md p-3 lg:p-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-col gap-2 lg:gap-3">
+                    <!-- БЛОК "КАК МЫ БУДЕМ РАБОТАТЬ" (С УВЕЛИЧЕННЫМИ ОТСТУПАМИ) -->
+                    <div id="slide-stages" class="absolute inset-0 pt-12 lg:pt-16 pb-4 flex flex-col items-center justify-center px-4 lg:px-6 transition-all duration-700 opacity-0 translate-y-10 pointer-events-none">
+                        <h3 class="text-lg lg:text-3xl font-extrabold text-[#0f2a55] mb-4 lg:mb-6 text-center drop-shadow-sm">Как мы будем работать</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-14 w-full max-w-[1100px]">
+                            <div class="bg-white/80 backdrop-blur-md p-2 lg:py-16 lg:px-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-row lg:flex-col items-center lg:items-start gap-3 lg:gap-4">
                                 <div class="w-6 h-6 lg:w-10 lg:h-10 shrink-0 rounded-full bg-[#d18f2d] flex items-center justify-center text-white font-bold text-[10px] lg:text-lg shadow-md">1</div>
-                                <p class="text-[10px] lg:text-base text-slate-700 font-medium leading-tight">Вы оставляете заявку</p>
+                                <p class="text-[11px] lg:text-lg text-slate-700 font-medium leading-tight">Вы оставляете заявку</p>
                             </div>
-                            <div class="bg-white/80 backdrop-blur-md p-3 lg:p-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-col gap-2 lg:gap-3">
+                            <div class="bg-white/80 backdrop-blur-md p-2 lg:py-16 lg:px-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-row lg:flex-col items-center lg:items-start gap-3 lg:gap-4">
                                 <div class="w-6 h-6 lg:w-10 lg:h-10 shrink-0 rounded-full bg-[#d18f2d] flex items-center justify-center text-white font-bold text-[10px] lg:text-lg shadow-md">2</div>
-                                <p class="text-[10px] lg:text-base text-slate-700 font-medium leading-tight">Я предлагаю решение ваших задач и согласовываю его с вами</p>
+                                <p class="text-[11px] lg:text-lg text-slate-700 font-medium leading-tight">Я предлагаю решение и согласовываю с вами</p>
                             </div>
-                            <div class="bg-white/80 backdrop-blur-md p-3 lg:p-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-col gap-2 lg:gap-3">
+                            <div class="bg-white/80 backdrop-blur-md p-2 lg:py-16 lg:px-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-row lg:flex-col items-center lg:items-start gap-3 lg:gap-4">
                                 <div class="w-6 h-6 lg:w-10 lg:h-10 shrink-0 rounded-full bg-[#d18f2d] flex items-center justify-center text-white font-bold text-[10px] lg:text-lg shadow-md">3</div>
-                                <p class="text-[10px] lg:text-base text-slate-700 font-medium leading-tight">Обсуждаем и утверждаем дизайн, оформление, стоимость и сроки</p>
+                                <p class="text-[11px] lg:text-lg text-slate-700 font-medium leading-tight">Утверждаем дизайн, стоимость и сроки</p>
                             </div>
-                            <div class="bg-white/80 backdrop-blur-md p-3 lg:p-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-col gap-2 lg:gap-3">
+                            <div class="bg-white/80 backdrop-blur-md p-2 lg:py-16 lg:px-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-row lg:flex-col items-center lg:items-start gap-3 lg:gap-4">
                                 <div class="w-6 h-6 lg:w-10 lg:h-10 shrink-0 rounded-full bg-[#d18f2d] flex items-center justify-center text-white font-bold text-[10px] lg:text-lg shadow-md">4</div>
-                                <p class="text-[10px] lg:text-base text-slate-700 font-medium leading-tight">Вы вносите предоплату, я начинаю работу</p>
+                                <p class="text-[11px] lg:text-lg text-slate-700 font-medium leading-tight">Вы вносите предоплату</p>
                             </div>
-                            <div class="bg-white/80 backdrop-blur-md p-3 lg:p-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-col gap-2 lg:gap-3">
+                            <div class="bg-white/80 backdrop-blur-md p-2 lg:py-16 lg:px-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-row lg:flex-col items-center lg:items-start gap-3 lg:gap-4">
                                 <div class="w-6 h-6 lg:w-10 lg:h-10 shrink-0 rounded-full bg-[#d18f2d] flex items-center justify-center text-white font-bold text-[10px] lg:text-lg shadow-md">5</div>
-                                <p class="text-[10px] lg:text-base text-slate-700 font-medium leading-tight">Я представляю вам результат и демонстрирую функционал вашего сайта</p>
+                                <p class="text-[11px] lg:text-lg text-slate-700 font-medium leading-tight">Показываю результат и функционал</p>
                             </div>
-                            <div class="bg-white/80 backdrop-blur-md p-3 lg:p-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-col gap-2 lg:gap-3">
+                            <div class="bg-white/80 backdrop-blur-md p-2 lg:py-16 lg:px-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-row lg:flex-col items-center lg:items-start gap-3 lg:gap-4">
                                 <div class="w-6 h-6 lg:w-10 lg:h-10 shrink-0 rounded-full bg-[#d18f2d] flex items-center justify-center text-white font-bold text-[10px] lg:text-lg shadow-md">6</div>
-                                <p class="text-[10px] lg:text-base text-slate-700 font-medium leading-tight">Согласовываем и вносим правки</p>
+                                <p class="text-[11px] lg:text-lg text-slate-700 font-medium leading-tight">Согласовываем и вносим правки</p>
                             </div>
-                            <div class="bg-white/80 backdrop-blur-md p-3 lg:p-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-col gap-2 lg:gap-3 col-span-2 lg:col-span-1 lg:col-start-2">
+                            <div class="bg-white/80 backdrop-blur-md p-2 lg:py-16 lg:px-6 rounded-xl lg:rounded-2xl border border-white shadow-lg flex flex-row lg:flex-col items-center lg:items-start gap-3 lg:gap-4 sm:col-span-2 lg:col-span-1 lg:col-start-2">
                                 <div class="w-6 h-6 lg:w-10 lg:h-10 shrink-0 rounded-full bg-[#d18f2d] flex items-center justify-center text-white font-bold text-[10px] lg:text-lg shadow-md">7</div>
-                                <p class="text-[10px] lg:text-base text-slate-700 font-medium leading-tight">Вы оплачиваете остаток стоимости и получаете работающий сайт</p>
+                                <p class="text-[11px] lg:text-lg text-slate-700 font-medium leading-tight">Вы оплачиваете остаток и получаете сайт</p>
                             </div>
                         </div>
                     </div>
@@ -372,7 +374,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const birdContainer = birdA.parentElement;
     const birdFrames = Array.from({ length: 41 }, (_, i) => `{{ asset('images/bird') }}/${i + 1}.png`);
 
-    // === ПТИЦА: один полёт, с предзагрузкой кадров ===
     let currentFrameIndex = 0;
     let isLayerAActive = true;
     let birdRafId = null;
@@ -427,7 +428,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const stopBirdFlight = () => { isBirdFlying = false; cancelAnimationFrame(birdRafId); };
 
-    // === СОСТОЯНИЯ ===
     let currentState = 0;
     let isAnimating = false;
     let currentProject = 0;
@@ -614,7 +614,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: false });
 
-    // === МОБИЛКА: свайп с fallback на touchend ===
     const container = document.getElementById('main-container');
     let touchStartY = 0;
     let touchStartX = 0;
